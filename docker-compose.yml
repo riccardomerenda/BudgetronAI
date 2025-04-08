@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  ai-services:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/AIServices:/app
+    environment:
+      - ENVIRONMENT=development
+      - LOG_LEVEL=debug
+      - MODEL_PATH=/app/models
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/budgetronai
+    networks:
+      - budgetronai-network
+    depends_on:
+      - postgres
+      - redis
+  
+  postgres:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=budgetronai
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - budgetronai-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - budgetronai-network
+
+networks:
+  budgetronai-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
