@@ -45,7 +45,8 @@ jobs:
       - name: Test with pytest
         working-directory: ./
         run: |
-          python -m pytest src/AIServices/tests/ -v
+          # Set PYTHONPATH to include src directory
+          PYTHONPATH=$PYTHONPATH:$(pwd) python -m pytest src/AIServices/tests/ -v
 
   docker-build:
     runs-on: ubuntu-latest
