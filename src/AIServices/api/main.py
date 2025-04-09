@@ -10,7 +10,7 @@ app = FastAPI(
 @app.get("/health")
 async def health_check():
     """Health check endpoint to verify the service is running."""
-    return {"status": "operational", "message": "BudgetronAI AI Service Operational"}
+    return {"status": "operational", "message": "BudgetronAI AI Service Operational v2.0"}
 
 
 if __name__ == "__main__":
