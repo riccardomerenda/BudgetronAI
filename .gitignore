@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Rider / JetBrains
+.idea/
+
+# Python
+__pycache__/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.http
+
+# Migrations
+# src/Backend/BudgetronAI.API/Migrations/
+
+# .NET config files
+appsettings.json
+appsettings.Development.json
