@@ -1,0 +1,10 @@
+@namespace BudgetronAI.UI.Shared
+@inject NavigationManager Nav
+
+@code {
+    protected override void OnInitialized()
+    {
+        // forza il redirect alla login
+        Nav.NavigateTo("/login", true);
+    }
+}

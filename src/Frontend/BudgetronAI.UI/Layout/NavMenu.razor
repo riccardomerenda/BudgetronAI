@@ -1,0 +1,45 @@
+﻿<div class="sidebar-header ps-3 navbar navbar-dark">
+    <a class="navbar-brand" href="">BudgetronAI.UI</a>
+</div>
+
+<nav class="nav flex-column ps-3">
+
+    <AuthorizeView>
+        <Authorized>
+            <NavLink class="nav-link mb-2" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-fill"></span> Home
+            </NavLink>
+
+            <a class="nav-link text-danger mt-auto" href="javascript:void(0)" @onclick="OnLogout">
+                <span class="bi bi-box-arrow-right"></span> Logout
+            </a>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView>
+        <NotAuthorized>
+            <NavLink class="nav-link mb-2" href="/login">
+                <span class="bi bi-box-arrow-in-right"></span> Login
+            </NavLink>
+        </NotAuthorized>
+    </AuthorizeView>
+
+
+</nav>
+
+
+@using BudgetronAI.UI.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthProvider
+@inject NavigationManager Navigation
+
+@code {
+    private async Task OnLogout()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        if (AuthProvider is JwtAuthenticationStateProvider jwtProvider)
+            jwtProvider.NotifyUserLogout();
+
+        Navigation.NavigateTo("/login", true);
+    }
+}

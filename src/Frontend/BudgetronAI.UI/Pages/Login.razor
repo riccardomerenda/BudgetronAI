@@ -1,0 +1,91 @@
+@page "/login"
+@layout EmptyLayout
+@using System.ComponentModel.DataAnnotations
+@using BudgetronAI.UI.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthProvider
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <h2 class="text-2xl font-semibold text-center mb-6">Login to BudgetronAI</h2>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+      <div class="bg-red-100 text-red-800 rounded p-2 mb-4">@errorMessage</div>
+    }
+
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+      <DataAnnotationsValidator />
+      <ValidationSummary class="text-red-600 mb-4" />
+
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Email</label>
+        <InputText @bind-Value="loginModel.Email" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-1">Password</label>
+        <InputText @bind-Value="loginModel.Password" type="password" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Login</button>
+    </EditForm>
+  </div>
+</div>
+
+@code {
+    private LoginRequest loginModel = new();
+    private string? errorMessage;
+
+    public class LoginRequest
+    {
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public string Password { get; set; } = string.Empty;
+    }
+
+    private async Task HandleLogin()
+    {
+        errorMessage = null;
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/api/auth/login", loginModel);
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = "Invalid email or password.";
+                return;
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+            if (string.IsNullOrEmpty(result?.Token))
+            {
+                errorMessage = "Invalid response from server.";
+                return;
+            }
+
+            // 1) salva il token
+            await LocalStorage.SetItemAsync("authToken", result.Token);
+
+            // 2) notifica subito il provider
+            if (AuthProvider is JwtAuthenticationStateProvider jwtProvider)
+            {
+                jwtProvider.NotifyUserAuthentication(result.Token);
+            }
+
+            // 3) naviga alla Home
+            Navigation.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred: " + ex.Message;
+        }
+    }
+
+
+    public class LoginResponse { public string Token { get; set; } = string.Empty; }
+}

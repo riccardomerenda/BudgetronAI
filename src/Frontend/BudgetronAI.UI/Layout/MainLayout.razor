@@ -1,0 +1,60 @@
+﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.Components.Authorization
+@using BudgetronAI.UI.Services
+
+<div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gradient-to-b from-blue-800 to-purple-800 text-white">
+        <div class="p-4 text-2xl font-bold">BudgetronAI</div>
+        <nav class="p-2 space-y-1">
+            <NavLink class="block px-4 py-2 rounded hover:bg-blue-700" href="">
+                Home
+            </NavLink>
+            <!-- Altri link di navigazione -->
+        </nav>
+    </aside>
+
+    <!-- Content + Header -->
+    <div class="flex-1 flex flex-col">
+
+        <!-- Header -->
+        <header class="flex items-center justify-between bg-white shadow px-6 py-3">
+            <div class="text-xl font-semibold">Dashboard</div>
+            <div class="flex items-center space-x-4">
+                <AuthorizeView>
+                    <Authorized>
+                        <span class="text-gray-700">Welcome, @context.User.FindFirst("email")?.Value</span>
+                        <button class="text-red-600 hover:underline" @onclick="Logout">Logout</button>
+                    </Authorized>
+                    <NotAuthorized>
+                        <NavLink class="text-blue-600 hover:underline" href="/login">Login</NavLink>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </header>
+
+        <!-- Main body -->
+        <main class="flex-1 overflow-auto bg-gray-50">
+            <div class="p-6">
+                @Body
+            </div>
+        </main>
+
+    </div>
+</div>
+
+@code {
+    [Inject] ILocalStorageService LocalStorage { get; set; } = default!;
+    [Inject] AuthenticationStateProvider AuthProvider { get; set; } = default!;
+    [Inject] NavigationManager Nav { get; set; } = default!;
+
+    private async Task Logout()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        if (AuthProvider is JwtAuthenticationStateProvider jwt) 
+            jwt.NotifyUserLogout();
+        Nav.NavigateTo("/login", true);
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Home</PageTitle>
+
+<div class="p-8 space-y-6">
+    <h1 class="text-4xl font-bold text-gray-800">Welcome to BudgetronAI</h1>
+    <p class="text-lg text-gray-600">
+        BudgetronAI is a comprehensive web application for family finance management 
+        that integrates artificial intelligence to provide personalized advice and 
+        in-depth analysis. Designed for families who want to optimize their financial
+        situation simply and intuitively.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h2 class="text-xl font-semibold mb-2">Expense Tracking</h2>
+            <p class="text-gray-500">Automatically categorize your expenses and get a clear view of where your money goes.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h2 class="text-xl font-semibold mb-2">Smart Budgeting</h2>
+            <p class="text-gray-500">Create and monitor monthly budgets based on the 50/30/20 rule.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h2 class="text-xl font-semibold mb-2">AI Advisor</h2>
+            <p class="text-gray-500">Ask our virtual financial advisor for personalized tips and trend predictions.</p>
+        </div>
+        
+    </div>
+</div>

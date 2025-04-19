@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1AE8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetronAI.API", "Backend\BudgetronAI.API\BudgetronAI.API.csproj", "{4BA58E8D-D349-4B7B-AAED-F337F7C8E4BA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{CE609670-85B9-0D16-FB54-ED063D5D8A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetronAI.UI", "Frontend\BudgetronAI.UI\BudgetronAI.UI.csproj", "{14F4B229-C2A7-45E9-844B-F7284D3AC048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,11 +33,24 @@ Global
 		{4BA58E8D-D349-4B7B-AAED-F337F7C8E4BA}.Release|x64.Build.0 = Release|Any CPU
 		{4BA58E8D-D349-4B7B-AAED-F337F7C8E4BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{4BA58E8D-D349-4B7B-AAED-F337F7C8E4BA}.Release|x86.Build.0 = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|x64.Build.0 = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Debug|x86.Build.0 = Debug|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|x64.ActiveCfg = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|x64.Build.0 = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|x86.ActiveCfg = Release|Any CPU
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4BA58E8D-D349-4B7B-AAED-F337F7C8E4BA} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+		{14F4B229-C2A7-45E9-844B-F7284D3AC048} = {CE609670-85B9-0D16-FB54-ED063D5D8A6D}
 	EndGlobalSection
 EndGlobal
